@@ -3,8 +3,9 @@
 set -euo pipefail
 
 make_status() {
-    URL="$1"
-    echo "<p>Status of $URL: $(TIME="%e" time -o >(echo ", $(echo "scale=0; $(cat /dev/stdin) * 1000 / 1" | bc)ms") curl -s -o /dev/null -w "code %{http_code}" "$URL")</p>"
+    url="$1"
+    read http_code time_total <<< $(curl -s -o /dev/null -w "%{http_code} %{time_total}" "$url")
+    echo "<p>Status of $url: code $http_code, $(echo "scale=0; $time_total * 1000 / 1" | bc)ms</p>"
 }
 
 cat << EOF
