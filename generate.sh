@@ -9,10 +9,11 @@ cat << EOF
 <!DOCTYPE html>
 <html>
     <head>
-        <title>status checker</title>
+        <title>Service Statuses</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
     <body>
+        <p>Last updated $(LANG=en date --utc)</p>
         $(make_status https://google.com)
         $(make_status https://megahomyak.com)
         $(make_status https://example.com)
